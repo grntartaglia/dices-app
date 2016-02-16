@@ -15,6 +15,7 @@ export default class DiceViewer extends React.Component {
       times: 5,
       results: [],
       tmpMods: '',
+      mods: props.dice.mods,
     };
 
     this._go = this._go.bind(this);
@@ -22,6 +23,12 @@ export default class DiceViewer extends React.Component {
     this._handleTmpMods = this._handleTmpMods.bind(this);
     this._handleTimes = this._handleTimes.bind(this);
     this._eraseTimes = this._eraseTimes.bind(this);
+  }
+
+  componentWillReceiveProps(props) {
+    this.state.tmpMods = props.dice.tmpMods.map(v => v.val);
+    this.state.mods = props.dice.mods;
+    this.setState({ results: [] });
   }
 
   _getResults() {
@@ -58,6 +65,8 @@ export default class DiceViewer extends React.Component {
         this.props.dice.addMod(parseInt(v, 10));
       }
     });
+
+    this.setState({ mods: values });
   }
 
   _handleTmpMods(e) {
@@ -102,7 +111,7 @@ export default class DiceViewer extends React.Component {
               <input
                 type="text"
                 name="dice-mods"
-                defaultValue={dice.mods.join(', ')}
+                value={this.state.mods}
                 placeholder="Nenhum"
                 onChange={this._handleMods}
               />

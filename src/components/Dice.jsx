@@ -5,6 +5,7 @@ export default class Dice extends React.Component {
   static get propTypes() {
     return {
       dice: React.PropTypes.instanceOf(D).isRequired,
+      onClick: React.PropTypes.func,
     };
   }
 
@@ -23,7 +24,7 @@ export default class Dice extends React.Component {
     }
 
     return (
-      <div className="dice">
+      <div className="dice" onClick={this.props.onClick}>
         <h3>D{dice.sides}{mod}</h3>
       </div>
     );
