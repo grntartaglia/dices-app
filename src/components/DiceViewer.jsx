@@ -47,9 +47,14 @@ export default class DiceViewer extends React.Component {
   }
 
   _go() {
+    if (!this.state.times) {
+      this.setState({ times: 1 });
+      this.state.times = 1;
+    }
+
     let results = this.props.dice.roll(this.state.times);
 
-    if (this.state.times === 1) {
+    if (parseInt(this.state.times, 10) === 1) {
       results = [results];
     }
 
@@ -71,6 +76,7 @@ export default class DiceViewer extends React.Component {
 
   _handleTmpMods(e) {
     const values = e.target.value.split(',').map(v => v.trim());
+
     values.forEach(v => {
       if (!!v.trim()) {
         this.props.dice.addTmpMod(parseInt(v, 10), parseInt(this.state.times, 10));
@@ -107,7 +113,7 @@ export default class DiceViewer extends React.Component {
         <div className="dice-viewer-main">
           <div>
             <label>
-              Modificadores:
+              Modificadores:&nbsp;
               <input
                 type="text"
                 name="dice-mods"
@@ -120,7 +126,7 @@ export default class DiceViewer extends React.Component {
 
           <div>
             <label>
-              Modificadores temporários:
+              Modificadores temporários:&nbsp;
               <input
                 type="text"
                 name="dice-tmp-mods"
@@ -135,7 +141,7 @@ export default class DiceViewer extends React.Component {
 
           <div>
             <label>
-              Rolar
+              Rolar&nbsp;
               <input
                 type="text"
                 name="dice-times"

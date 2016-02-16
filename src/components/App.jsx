@@ -10,8 +10,11 @@ export default class App extends React.Component {
     this.state = {
       currentDice: null,
       dices: [
-        new D(4),
+        new D(6),
+        new D(8),
         new D(10),
+        new D(12),
+        new D(20),
       ],
     };
 
@@ -34,7 +37,12 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>Dices</h1>
-        {this.state.dices.map((d, i) => <Dice dice={d} key={i} onClick={this._selectDice(d)} />)}
+        <div>
+          {this.state.dices.map((d, i) => {
+            const selected = this.state.currentDice === d;
+            return <Dice dice={d} key={i} onClick={this._selectDice(d)} selected={selected} />;
+          })}
+        </div>
         {diceViewer}
       </div>
     );

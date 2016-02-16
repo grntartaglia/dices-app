@@ -6,26 +6,20 @@ export default class Dice extends React.Component {
     return {
       dice: React.PropTypes.instanceOf(D).isRequired,
       onClick: React.PropTypes.func,
+      selected: React.PropTypes.bool,
     };
   }
 
   render() {
-    const dice = this.props.dice;
-    let mod = '';
+    let className = 'dice';
 
-    if (dice.getModsSum()) {
-      let sum = dice.getModsSum();
-
-      if (sum > 0) {
-        sum = `+${sum}`;
-      }
-
-      mod = <small>{sum}</small>;
+    if (this.props.selected) {
+      className += ' dice-selected';
     }
 
     return (
-      <div className="dice" onClick={this.props.onClick}>
-        <h3>D{dice.sides}{mod}</h3>
+      <div className={className} onClick={this.props.onClick}>
+        <h3>D{this.props.dice.sides}</h3>
       </div>
     );
   }
